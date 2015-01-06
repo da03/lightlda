@@ -1,4 +1,3 @@
-tm_server
+Light LDA
 =========
-
-Topic Model Server
+ Petuum's Light LDA
