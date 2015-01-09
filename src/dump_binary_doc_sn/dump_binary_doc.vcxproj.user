@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerEnvironment>$GLOG_logtostderr=1</LocalDebuggerEnvironment>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>--libsvm_doc=D:\Users\jiyuan\lda\libsvm\nytimes\nytimes.libsvm --binary_doc_dir=D:\Users\jiyuan\lda\libsvm\nytimes\block --block_size=100000</LocalDebuggerCommandArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LocalDebuggerEnvironment>GLOG_logtostderr=1
+GLOG_v=-1
+GLOG_minloglevel=0
+$(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>--libsvm_doc=D:\TFS\Users\jiyuan\light_lda_sn\x64\Release\wiki_voc1000000.libsvm --binary_doc_dir=D:\TFS\Users\jiyuan\light_lda_sn\x64\Release</LocalDebuggerCommandArguments>
+  </PropertyGroup>
+</Project>
