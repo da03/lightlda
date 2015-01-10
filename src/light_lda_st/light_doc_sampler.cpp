@@ -28,9 +28,11 @@ namespace lda
 		beta_sum_ = beta_ * V_;
 		alpha_sum_ = context.get_double("alpha_sum");
 		//alpha_sum_ = alpha_ * K_;
-		alpha_ = 0.01;
+		// ORIG: alpha_ = 0.01;
+		alpha_ = alpha_sum_ / K_;
 
-		ll_alpha_ = 0.01;
+		// ORIG: ll_alpha_ = 0.01;
+        ll_alpha_ = alpha_;
 		ll_alpha_sum_ = ll_alpha_ * K_;
 
 		// Precompute LLH parameters
@@ -63,18 +65,23 @@ namespace lda
 		oplog_.set_empty_key(-1);
 		oplog_.set_deleted_key(-2);
 #endif
-		alias_rng_.Init(K_ * 10);
+        // ORIG: alias_rng_.Init(K_ * 10);
+        alias_rng_.resize(V_);
+        for (int i = 0; i < V_; ++i) {
+            alias_rng_[i] = std::make_shared<wood::AliasMultinomialRNG>();
+            alias_rng_[i]->Init(K_ * 10);
+        }
 	
 		q_w_sum_.resize(V_);
 		q_w_proportion_.resize(V_);
 
-		s_w_.resize(V_);
+		// ORIG: s_w_.resize(V_);
 		for (int i = 0; i < V_; i++)
 		{
 			q_w_proportion_[i].resize(K_);
-			s_w_[i].resize(K_);
+			// ORIG: s_w_[i].resize(K_);
 		}
-		s_w_num_.resize(V_);
+		// ORIG: s_w_num_.resize(V_);
 	}
 
 	LightDocSampler::~LightDocSampler()
@@ -146,10 +153,11 @@ namespace lda
 			int32_t w = words[i];
 			int32_t s = topics[i]; // old topic
 
-			if (s_w_num_[w] < mh_step_for_gs_ - 1)
+			// ORIG:
+            /*if (s_w_num_[w] < mh_step_for_gs_ - 1)
 			{
 				GenerateAliasTableforWord(w);
-			}
+			}*/
 			
 			int t = Sample2WordFirst(doc, w, s, s);    // new topic
 
@@ -184,10 +192,12 @@ namespace lda
 			int32_t w = words[i];
 			int32_t s = topics[i]; // old topic
 
+            // ORIG:
+            /*
 			if (s_w_num_[w] < mh_step_for_gs_ - 1)
 			{
 				GenerateAliasTableforWord(w);
-			}
+			}*/
 
 			int t = SampleWordFirst(doc, w, s);
 

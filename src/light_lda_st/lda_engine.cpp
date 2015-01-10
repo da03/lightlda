@@ -55,6 +55,8 @@ namespace lda {
 			sampler_.zero_statistics();
 			sampler_.UpdateAlpha(iter);
 
+            // ORIG:
+            sampler_.EpocInit();
 			double iter_start = lda::get_time();
 
 			for (auto &doc : docs_)

@@ -54,7 +54,9 @@ namespace lda
 			
 			*/
 
-			if (iter < 10)
+			/*
+             // ORIG:
+            if (iter < 10)
 			{
 				alpha_ = 0.03;
 			}
@@ -65,7 +67,7 @@ namespace lda
 			else
 			{
 				alpha_ = 0.01;
-			}
+			}*/
 
 			alpha_sum_ = alpha_ * K_;
 
@@ -178,11 +180,12 @@ namespace lda
 		real_t delta_alpha_sum_;
 		int32_t decay_step_;
 
-		wood::AliasMultinomialRNG alias_rng_;
+		// ORIG: wood::AliasMultinomialRNG alias_rng_;
+        std::vector<std::shared_ptr<wood::AliasMultinomialRNG> > alias_rng_;
 		std::vector<real_t> q_w_sum_;
 		std::vector<std::vector<real_t>> q_w_proportion_;
-		std::vector<std::vector<int32_t>> s_w_;
-		std::vector<int32_t> s_w_num_;
+		// ORIG: std::vector<std::vector<int32_t>> s_w_;
+		// ORIG: std::vector<int32_t> s_w_num_;
 
 
 
@@ -272,12 +275,14 @@ namespace lda
 		}
 		q_w_sum_[word] = q_w_sum;
 		q_w_proportion_[word] = q_w_proportion;
-		alias_rng_.SetProportionMass(q_w_proportion, q_w_sum);
-		for (int i = 0; i < K_; ++i)
+		// ORIG: alias_rng_.SetProportionMass(q_w_proportion, q_w_sum);
+		alias_rng_[word]->SetProportionMass(q_w_proportion, q_w_sum);
+		// ORIG: 
+        /*for (int i = 0; i < K_; ++i)
 		{
 			s_w_[word][i] = alias_rng_.Next();
 		}
-		s_w_num_[word] = K_ - 1;
+		s_w_num_[word] = K_ - 1;*/
 	}
 
 	
@@ -310,8 +315,9 @@ namespace lda
 			// n_td proposal
 			int32_t t;
 			// n_tw proposal
-			t = s_w_[w][s_w_num_[w]];
-			--s_w_num_[w];
+			// ORIG: t = s_w_[w][s_w_num_[w]];
+			// ORIG: --s_w_num_[w];
+            t = alias_rng_[w]->Next();
 
 			rejection = wood::fast_rand_double();
 
@@ -397,8 +403,9 @@ namespace lda
 
 
 			// n_tw proposal
-			t = s_w_[w][s_w_num_[w]];
-			--s_w_num_[w];
+			// ORIG: t = s_w_[w][s_w_num_[w]];
+			// ORIG: --s_w_num_[w];
+            t = alias_rng_[w]->Next();
 
 			rejection = wood::fast_rand_double();
 
