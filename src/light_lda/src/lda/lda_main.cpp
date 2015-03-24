@@ -82,9 +82,7 @@ int main(int argc, char *argv[]) {
 	table_group_config.dump_file = FLAGS_dump_file;
 	table_group_config.dump_iter = FLAGS_dump_model_interval;
 
-    std::cout<<"starting"<<std::endl<<std::flush;
 	int32_t init_thread_id = petuum::TableGroup::Init(table_group_config, false);
-    std::cout<<"started"<<std::endl<<std::flush;
 	LOG(INFO) << "Initialized TableGroup, init thread id = " << init_thread_id;
 
 	LOG(INFO) << "num of clients = " << FLAGS_num_clients;
@@ -101,7 +99,6 @@ int main(int argc, char *argv[]) {
 	lda::LDAEngine lda_engine;
 
 	lda_engine.Setup();
-    std::cout<<"started2"<<std::endl<<std::flush;
 
 	std::vector<std::thread> threads(FLAGS_num_worker_threads);
 	for (auto& thr : threads) {

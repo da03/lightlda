@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
 hostfile_name="scripts/localserver"
-num_worker_threads=8
-num_delta_threads=1
+num_worker_threads=12
+num_delta_threads=2
 cold_start=true
 staleness=1
-num_blocks=12
+num_blocks=51
 block_offset=0
-doc_file_name="datasets/binary_doc_dir/block"
-vocab_file_name="datasets/binary_doc_dir/vocab"
+doc_file_name="../cw_ten_percent/datasets/binary_doc_dir_T300k_B30m/block"
+vocab_file_name="../cw_ten_percent/datasets/binary_doc_dir_T300k_B30m/vocab"
 dump_dir="output/"
-meta_file_name_prefix="datasets/20news.meta" # do not include .client_id
-alpha=0.1
-beta=0.1
+meta_file_name_prefix="../cw_ten_percent/meta" # do not include .client_id
+alpha=0.0005
+beta=0.01
 mh_step=2
-num_vocabs=53485
-num_topics=100
-num_iterations=100
-compute_ll_interval=1 
-dump_model_interval=20
-block_size=1001
-block_max_capacity=1000000
-model_max_capacity=10000000
-alias_max_capacity=10000000
-delta_max_capacity=10000000
+num_vocabs=1000000
+num_topics=300000
+num_iterations=5000
+compute_ll_interval=1
+dump_model_interval=10
+block_size=1000001
+block_max_capacity=3000000000
+model_max_capacity=2000000000
+alias_max_capacity=2000000000
+delta_max_capacity=200000000
 load_factor=2
 log_dirname="log/"
 # Figure out the paths.
@@ -37,7 +37,7 @@ progname=lda_main
 prog_path=$app_dir/bin/$progname
 log_path=${app_dir}/$log_dirname
 dump_file=${app_dir}/$dump_dir
-
+dump_path="${dump_file}/dump"
 # Mkdir
 if [ ! -d "$log_path" ]; then
     mkdir -p $log_path
@@ -85,7 +85,7 @@ for ip in $unique_host_list; do
       fi
   fi
   meta_name="${app_dir}/${meta_file_name_prefix}.${client_id}"
-  cmd="GLOG_logtostderr=true \
+  cmd="GLOG_logtostderr=false \
       GLOG_log_dir=$log_path \
       GLOG_v=-1 \
       GLOG_minloglevel=0 \
@@ -101,7 +101,7 @@ for ip in $unique_host_list; do
       --block_offset $client_block_offset \
       --doc_file $doc_file \
       --vocab_file $vocab_file \
-      --dump_file $dump_file \
+      --dump_file $dump_path \
       --meta_name $meta_name \
       --alpha $alpha \
       --beta $beta \

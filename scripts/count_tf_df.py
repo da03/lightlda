@@ -2,6 +2,7 @@
 
 # Convert libsvm such that all spaces are replaced with tab
 import os, sys, random
+import codecs
 
 if len(sys.argv) <> 4:
     print ''
@@ -16,8 +17,9 @@ output_filename = sys.argv[3]
 vocab = []
 with open(vocab_filename, 'r') as fvoc:
     for line in fvoc.readlines():
-        line_conv = line.strip()
-        vocab.append(line_conv)
+        line_conv = line.strip().split()
+        assert len(line_conv) == 2
+        vocab.append(line_conv[0])
 
 tf_dict = {}
 df_dict = {}

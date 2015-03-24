@@ -18,9 +18,9 @@ voc_dict = {}
 with open(vocab_filename, 'r') as fvoc:
     line_idx = 0
     for line in fvoc.readlines():
-        line_conv = line.strip()
-        assert len(line_conv) > 0, str(line_idx+1)
-        voc_dict[line_conv] = str(line_idx)
+        line_conv = line.strip().split()
+        assert len(line_conv) == 2, str(line_idx+1)
+        voc_dict[line_conv[0]] = str(line_idx)
         line_idx = line_idx + 1
 
 newvoc_dict = {}

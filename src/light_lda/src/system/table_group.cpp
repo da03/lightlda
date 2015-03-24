@@ -146,7 +146,6 @@ namespace petuum {
 		int32_t thread_id = GlobalContext::get_local_id_min()
 			+ GlobalContext::kInitThreadIDOffset + app_thread_id_offset;
 
-        std::cout<<"-----here-----" << thread_id<<std::endl<<std::flush;
 
 		petuum::CommBus::Config comm_config(thread_id, petuum::CommBus::kNone, "");
 		GlobalContext::comm_bus->ThreadRegister(comm_config);
@@ -158,7 +157,6 @@ namespace petuum {
 
 
 		pthread_barrier_wait(&register_barrier_);
-        std::cout<<"-----endhere-----" << thread_id<<std::endl<<std::flush;
 		return thread_id;
 	}
 

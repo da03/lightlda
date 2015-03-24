@@ -36,7 +36,6 @@ for line in word_dict_file:
     id2tf[id_list[word_num]] = tf
     word_num += 1
 
-
 with open('word_dict.pickle', 'wb') as handle:
 	pickle.dump(word_dict, handle)
 

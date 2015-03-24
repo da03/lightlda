@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 #hostfile_name="scripts/localserver"
 log_dirname="log/"
-word_id_filename="datasets/word_dict.id.txt.20news"
-dict_meta_filename="datasets/20news.meta"
+word_id_filename="../cw_ten_percent/word_dict.id.txt"
+dict_meta_filename="../cw_ten_percent/meta"
 load_factor=2
-num_vocabs=53485
-num_topics=100
-num_clients=2
+num_vocabs=1000000
+num_topics=300000
+num_clients=4
 
-libsvm_doc="datasets/20news.dat.conv"
-binary_doc_dirname="datasets/binary_doc_dir"
-block_size=1000
-mean_doc_size=332
+libsvm_doc="../cw_ten_percent/cw_1M_libsvm.conv"
+binary_doc_dirname="../cw_ten_percent/datasets/binary_doc_dir_T300k_B30m"
+block_size=1000000
+mean_doc_size=233
 word_tf_filename=$word_id_filename
 file_offset=0
 # Figure out the paths.

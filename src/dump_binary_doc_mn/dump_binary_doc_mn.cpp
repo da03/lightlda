@@ -222,7 +222,7 @@ void dump_blocks(std::string input_doc, std::string output_dir, int32_t block_nu
 			//block_token_num += doc_count;
 
 			// The input data are already sorted
-			//std::sort(doc_tokens.begin(), doc_tokens.end(), Compare);
+			std::sort(doc_tokens.begin(), doc_tokens.end(), Compare);
 
 			block_buf[doc_buf_idx++] = 0; // cursor
 			

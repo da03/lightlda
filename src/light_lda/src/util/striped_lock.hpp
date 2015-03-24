@@ -38,8 +38,7 @@ public:
   explicit StripedLock(int lock_pool_size) :
     lock_pool_size_(lock_pool_size),
     lock_pool_(new MUTEX[lock_pool_size_]) {
-    //VLOG(0) << "Lock pool size: " << lock_pool_size_;
-    LOG(ERROR) << "Lock pool size: " << lock_pool_size_;
+    VLOG(0) << "Lock pool size: " << lock_pool_size_;
     }
 
   // Lock index idx.
