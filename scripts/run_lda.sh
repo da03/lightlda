@@ -60,7 +60,7 @@ num_unique_hosts=`cat $hostfile | awk '{ print $2 }' | uniq | wc -l`
 # Kill previous instances of this program
 echo "Killing previous instances of '$progname' on servers, please wait..."
 for ip in $unique_host_list; do
-  #ssh $ssh_options $ip \
+  ssh $ssh_options $ip \
     killall -q $progname
 done
 echo "All done!"
@@ -118,8 +118,8 @@ for ip in $unique_host_list; do
       --delta_max_capacity $delta_max_capacity \
       --load_factor $load_factor \
       --$flag_cold_start"
-  #ssh $ssh_options $ip $cmd & 
-  eval $cmd  # Use this to run locally (on one machine).
+  ssh $ssh_options $ip $cmd & 
+  #eval $cmd  # Use this to run locally (on one machine).
 
   # Wait a few seconds for the name node (client 0) to set up
   if [ $client_id -eq 0 ]; then
