@@ -48,15 +48,19 @@ if __name__ == '__main__':
             os.makedirs(need_mkdir)
     print('Creating done!')
 
-    print('Shuffling')
     tmp_tf_df_filename = os.path.join(params['tmp_directory'], 'tf_df')
     # Count term frequency and document frequency
+    print('Counting term frequency and document frequency')
     mean_doc_size = count_tf_df.main(params['doc_filename'], params['vocab_filename'], tmp_tf_df_filename, params['vocab_without_tf'])
+    print('Counting done.')
     # Shuffle vocab and generate new vocab id file
+    print('Shuffling and generating new vocab file')
     dump_word_dict.main(tmp_tf_df_filename, params['word_id_filename'])
-    # Convert word id
-    convert_word_id.main(params['doc_filename'], params['vocab_filename'], params['word_id_filename'], params['libsvm_doc'], params['vocab_without_tf'])
     print('Shuffling done.')
+    # Convert word id
+    print('Converting word id')
+    convert_word_id.main(params['doc_filename'], params['vocab_filename'], params['word_id_filename'], params['libsvm_doc'], params['vocab_without_tf'])
+    print('Converting done.')
 
     # Sync params in other files:
     if params['sync_params']:

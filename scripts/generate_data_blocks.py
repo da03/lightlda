@@ -3,8 +3,8 @@
 # Parameters
 params = {
     # Input files:
-    'libsvm_doc': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/20news.dat.conv' # Synced at Sat, 25 Apr 2015 03:25:41 GMT
-    , 'word_tf_file': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/word_dict.id.txt.20news' # Synced at Sat, 25 Apr 2015 03:25:41 GMT
+    'libsvm_doc': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/20news.dat.conv' # Synced at Sat, 25 Apr 2015 15:47:35 GMT
+    , 'word_tf_file': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/word_dict.id.txt.20news' # Synced at Sat, 25 Apr 2015 15:47:35 GMT
 
     # Block size:
     , 'block_size': 300
@@ -19,7 +19,7 @@ params = {
     # File offset:
     , 'file_offset': 0
     # Mean document size (does not need to be accurate):
-    , 'mean_doc_size': 100 # Synced at Sat, 25 Apr 2015 03:25:41 GMT
+    , 'mean_doc_size': 100 # Synced at Sat, 25 Apr 2015 15:47:35 GMT
     # Tmp files directory:
     , 'tmp_directory': 'tmp'
 }
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     cmd += ' --undefok=' + ','.join('%s' %k for k in params) + ' '
     cmd += "".join([' --%s=%s' % (k,v) for k,v in params.items()])
     print(cmd)
-    os.system(cmd)
+    subprocess.call(cmd, shell=True)
     print('Generate data blocks done.')
 
     # Get max size of blocks

@@ -23,7 +23,9 @@ def main(libsvm_filename, vocab_filename, output_filename, vocab_without_tf = Tr
     with open(libsvm_filename, 'r') as flib:
         with codecs.open(output_filename, encoding='utf-8', mode='w') as fout:
             line_idx = 1
-            for line in flib.readlines():
+            for line in flib:
+                if (line_idx-1) % 100000 == 0:
+                    print('%d lines counted') %(line_idx-1)
                 doc_tokens = 0
                 words = line.strip().split()
                 assert len(words) > 0, str(line_idx)

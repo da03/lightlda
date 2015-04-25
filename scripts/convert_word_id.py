@@ -36,6 +36,8 @@ def main(libsvm_filename, vocab_filename, wordid_filename, output_filename, voca
         with open(output_filename, 'w') as fout:
             line_idx = 1
             for line in flib:
+                if (line_idx-1) % 100000 == 0:
+                    print('%d lines converted') %(line_idx-1)
                 words = line.strip().split()
                 assert len(words) > 0, str(line_idx)
                 words_conv = []
@@ -50,7 +52,7 @@ def main(libsvm_filename, vocab_filename, wordid_filename, output_filename, voca
                 line_out ='0' + '\t' + '\t'.join(words_conv)
                 if line_idx > 1:
                     line_out = '\n' + line_out
-                line_idx = line_idx + 1
+                line_idx += 1
                 fout.write(line_out)
 
 if __name__ == '__main__':
