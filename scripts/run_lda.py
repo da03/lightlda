@@ -46,7 +46,7 @@ params = {
 import sys, os, subprocess, time, glob, codecs, re
 
 if __name__ == '__main__':
-    # Figure out the paths.
+    # Figure out the paths
     script_path = os.path.realpath(__file__)
     script_dir = os.path.dirname(script_path)
     app_dir = os.path.dirname(script_dir)

@@ -28,17 +28,9 @@ if __name__ == '__main__':
     script_dir = os.path.dirname(script_path)
     app_dir = os.path.dirname(script_dir)
 
-    # Judge input file exist and output directories not in temp directory and scripts not in temp directory
+    # Judge input files exist
     assert os.path.isfile(params['vocab_filename']), 'Vocab file %s does not exist!' %params['vocab_filename']
     assert os.path.isfile(params['doc_filename']), 'Doc file %s does not exist!' %params['doc_filename']
-    assert not os.path.realpath(os.path.dirname(params['word_id_filename'])
-            ).startswith(os.path.realpath(params['tmp_directory'])
-                    ), 'Output file directory must not be the same as or in temp files directory (which will be deleted)'
-    assert not  os.path.realpath(os.path.dirname(params['libsvm_doc'])
-            ).startswith(os.path.realpath(params['tmp_directory'])
-                    ), 'Output file directory must not be the same as or in temp files directory (which will be deleted)'
-    assert not script_path.startswith(os.path.realpath(params['tmp_directory'])
-            ), 'Temp files directory must not contain scripts file (as temp files directory will be deleted)'
 
     # Create directories if not present
     print('Creating directories if not present')
@@ -64,6 +56,15 @@ if __name__ == '__main__':
 
     # Sync params in other files:
     if params['sync_params']:
+        # Judge output directories not in temp directory and scripts not in temp directory
+        assert not os.path.realpath(os.path.dirname(params['word_id_filename'])
+            ).startswith(os.path.realpath(params['tmp_directory'])
+                ), 'Output file directory must not be the same as or in temp files directory (which will be deleted)'
+        assert not  os.path.realpath(os.path.dirname(params['libsvm_doc'])
+            ).startswith(os.path.realpath(params['tmp_directory'])
+                ), 'Output file directory must not be the same as or in temp files directory (which will be deleted)'
+        assert not script_path.startswith(os.path.realpath(params['tmp_directory'])
+            ), 'Temp files directory must not contain scripts file (as temp files directory will be deleted)'
         # Sync generate_data_blocks.py
         generate_data_blocks_path = os.path.join(script_dir, 'generate_data_blocks.py')
         tmp_data_blocks_path = os.path.join(params['tmp_directory'], 'generate_data_blocks.py')

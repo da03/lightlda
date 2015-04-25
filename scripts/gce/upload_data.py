@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Generate data blocks
+# Upload data to gce servers
 # Parameters
 params = {
     # Input files:
@@ -35,9 +35,17 @@ if __name__ == '__main__':
     progname = 'dump_binary_doc_mn'
     prog_path = os.path.join(app_dir, 'bin', progname)
 
-    # Judge input files exist
+    # Judge input file exist and output directories not in temp directory and scripts not in temp directory
     assert os.path.isfile(params['libsvm_doc']), 'Libsvm doc file %s does not exist!' %params['libsvm_doc']
     assert os.path.isfile(params['word_tf_file']), 'Vocab file %s does not exist!' %params['word_tf_file']
+    assert not os.path.realpath(params['binary_doc_dir']
+            ).startswith(os.path.realpath(params['tmp_directory'])
+                    ), 'Output file directory must not be the same as or in temp files directory (which will be deleted)'
+    assert not  os.path.realpath(params['log_dirname']
+            ).startswith(os.path.realpath(params['tmp_directory'])
+                    ), 'Log file directory must not be the same as or in temp files directory (which will be deleted)'
+    assert not script_path.startswith(os.path.realpath(params['tmp_directory'])
+            ), 'Temp files directory must not contain scripts file (as temp files directory will be deleted)'
 
     # Create directories if not present
     print('Creating directories if not present')
@@ -68,15 +76,6 @@ if __name__ == '__main__':
 
     # Sync params in other files:
     if params['sync_params']:
-        # Judge output directories not in temp directory and scripts not in temp directory
-        assert not os.path.realpath(params['binary_doc_dir']
-            ).startswith(os.path.realpath(params['tmp_directory'])
-                ), 'Output file directory must not be the same as or in temp files directory (which will be deleted)'
-        assert not  os.path.realpath(params['log_dirname']
-            ).startswith(os.path.realpath(params['tmp_directory'])
-                ), 'Log file directory must not be the same as or in temp files directory (which will be deleted)'
-        assert not script_path.startswith(os.path.realpath(params['tmp_directory'])
-            ), 'Temp files directory must not contain scripts file (as temp files directory will be deleted)'
         # Sync run_lda.py 
         run_lda_path = os.path.join(script_dir, 'run_lda.py')
         tmp_run_lda_path = os.path.join(params['tmp_directory'], 'run_lda.py')
