@@ -5,7 +5,7 @@ params = {
 
     # Input files:
     , 'word_id_file': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/word_dict.id.txt.20news' # Synced at Sat, 25 Apr 2015 15:48:05 GMT
-    , 'host_filename': 'scripts/localserver'
+    , 'host_filename': 'machinefiles/localserver'
     , 'binary_doc_dir': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/binary_doc_dir' # Synced at Sat, 25 Apr 2015 15:48:05 GMT
 
     # LDA Parameters:
