@@ -9,11 +9,15 @@ Light LDA
  ```
 
  ```
- sh scripts/preprocessdata.sh
+ python scripts/shuffle_vocab.py
  ```
 
  ```
- sh scripts/run_lda.sh
+ python scripts/generate_data_blocks.py
+ ```
+
+ ```
+ python scripts/run_lda.py
  ```
 
  Note: Tested on cogito, the machine file scripts/localserver contains two machines
