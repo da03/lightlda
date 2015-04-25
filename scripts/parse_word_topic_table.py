@@ -1,10 +1,10 @@
 #!/usr/bin/python
-import os, sys, random
+import os, sys, random, codecs
 
 if len(sys.argv) <> 5:
-    print ''
-    print 'Usage: python %s <vocab-file> <num-topic> <word-topic-tables> <output-file>' % sys.argv[0]
-    print ''
+    print >> sys.stderr, ''
+    print >> sys.stderr, 'Usage: python %s <vocab-file> <num-topic> <word-topic-tables> <output-file>' % sys.argv[0]
+    print >> sys.stderr, ''
     sys.exit(1)
 
 vocab_filename = sys.argv[1]
@@ -13,7 +13,7 @@ word_topic_filename = sys.argv[3]
 output_filename = sys.argv[4]
 
 vocab_array = []
-with open(vocab_filename, 'r') as fvocab:
+with codecs.open(vocab_filename, encoding='utf-8', mode='r') as fvocab:
     for line in fvocab:
         words = line.strip().split()
         vocab_array.append(words[1])
@@ -27,8 +27,8 @@ for word_topic_table in word_topic_tables:
         print 'Parsing ', word_topic_table
         for line in fwt:
             line_idx = line_idx + 1
-            if line_idx % 10000 == 0:
-                print line_idx / 100, 'percent completed'
+            if line_idx % 100000 == 0:
+                print line_idx, 'lines processed'
             words = line.split()
             if len(words) > 0:
                 word_id = int(words[0])
@@ -42,7 +42,7 @@ for topic in topic_array:
     topic_sorted = sorted(topic, key=lambda t: -1*t[1])
     topic_array_sorted.append(topic_sorted)
 
-with open(output_filename, 'w') as fout:
+with codecs.open(output_filename, encoding='utf-8', mode='w') as fout:
     for topic in topic_array_sorted:
         line = ''
         sum_item = 0.0
