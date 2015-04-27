@@ -1,19 +1,36 @@
 #!/usr/bin/env python
 # Parameters
 params = {
-    'host_filename': 'scripts/localserver'
+    'host_filename': '/home/yuntiand/daiwei/wrapup_preprocess/update5/lightlda/machinefiles/gce_hosts' # Synced at Mon, 27 Apr 2015 21:28:42 GMT
+    # Default parameters:
+    , 'ssh_identity_file': '~/.ssh/google_compute_engine' # Synced at Mon, 27 Apr 2015 21:28:42 GMT
+    , 'ssh_username': 'lightlda' # Synced at Mon, 27 Apr 2015 21:28:42 GMT
 }
 
 ###############################################################################
-# Spawn Petuum Sparse Coding on hosts listed in hostfile
-import sys, os, subprocess, time, glob, codecs, re
+import sys, os, subprocess, time, glob, codecs, re, multiprocessing
 
+def exec_cmds(cmds):
+    for cmd in cmds:
+        subprocess.call(cmd, shell=True)
+
+def multiprocess_exec_cmds(cmds):
+    cmds_ip_dict = {}
+    for cmd in cmds:
+        ip = re.search(r'(\d+\.\d+\.\d+\.\d+)', cmd).group(1)
+        if ip not in cmds_ip_dict:
+            cmds_ip_dict[ip] = []
+        cmds_ip_dict[ip].append(cmd)
+    threads = []
+    for ip in cmds_ip_dict:
+        thread = multiprocessing.Process(target=exec_cmds, args=(cmds_ip_dict[ip], ))
+        threads.append(thread)
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+    time.sleep(1)
 if __name__ == '__main__':
-    # Figure out the paths.
-    script_path = os.path.realpath(__file__)
-    script_dir = os.path.dirname(script_path)
-    app_dir = os.path.dirname(script_dir)
-
     # Parse hostfile
     host_file = os.path.realpath(params['host_filename'])
     try:
@@ -30,17 +47,24 @@ if __name__ == '__main__':
         sys.exit(1)
 
     progname = 'lda_main'
-    prog_path = os.path.join(app_dir, 'bin', progname)
     # SSH options
-    ssh_options = (' -oStrictHostKeyChecking=no'
+    if params['ssh_identity_file']:
+        ssh_options = ' -i %s' %params['ssh_identity_file']
+    else:
+        ssh_options = ''
+    ssh_options += (' -oStrictHostKeyChecking=no'
         ' -oUserKnownHostsFile=/dev/null'
         ' -oLogLevel=quiet'
     )
+    # SSH commands
+    ssh_commands = [' '.join(['ssh', ssh_options, (params['ssh_username']+'@'+ip if params['ssh_username'] else ip)]) for ip in unique_host_list]
 
     # Kill previous instances of this program
     print('Killing previous instances of %s on servers, please wait...' % progname)
-    for ip in unique_host_list:
-        cmd = ' '.join(['ssh', ssh_options, ip, 'killall -q %s' %progname])
-        os.system(cmd)
+    cmds = []
+    for ssh_cmd in ssh_commands:
+        cmd = ' '.join([ssh_cmd, 'killall -q %s' %progname])
+        cmds.append(cmd)
+    multiprocess_exec_cmds(cmds)
     print('All killed!')
 

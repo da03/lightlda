@@ -2,9 +2,10 @@
 # Upload data to gce servers
 # Parameters
 params = {
-    # Input files:
-    'libsvm_doc': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/20news.dat.conv' # Synced at Sat, 25 Apr 2015 15:47:35 GMT
-    , 'word_tf_file': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/word_dict.id.txt.20news' # Synced at Sat, 25 Apr 2015 15:47:35 GMT
+    # Local files:
+    'word_id_file': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/word_dict.id.txt.20news' # Synced at Sat, 25 Apr 2015 15:48:05 GMT
+    , 'host_filename': 'machinefiles/localserver'
+    , 'binary_doc_dir': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/binary_doc_dir' # Synced at Sat, 25 Apr 2015 15:48:05 GMT
 
     # Block size:
     , 'block_size': 300
