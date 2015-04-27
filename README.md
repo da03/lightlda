@@ -17,7 +17,14 @@ Light LDA
  ```
 
  ```
- python scripts/run_lda.py
+ python scripts/gce/create_instances.py
  ```
 
- Note: Tested on cogito, the machine file scripts/localserver contains two machines
+ ```
+ python scripts/run_lda.py
+ ```
+ 
+ ```
+ python scripts/delete_instances.py
+ ```
+ Note: Tested on GCE
