@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Parameters
 params = {
-    'host_filename': '/home/yuntiand/daiwei/wrapup_preprocess/update5/lightlda/machinefiles/gce_hosts' # Synced at Mon, 27 Apr 2015 21:28:42 GMT
+    'host_file': '/home/yuntiand/daiwei/wrapup_preprocess/update5/lightlda/machinefiles/gce_hosts' # Synced at Mon, 27 Apr 2015 21:28:42 GMT
     # Default parameters:
     , 'ssh_identity_file': '~/.ssh/google_compute_engine' # Synced at Mon, 27 Apr 2015 21:28:42 GMT
     , 'ssh_username': 'lightlda' # Synced at Mon, 27 Apr 2015 21:28:42 GMT
@@ -32,7 +32,7 @@ def multiprocess_exec_cmds(cmds):
     time.sleep(1)
 if __name__ == '__main__':
     # Parse hostfile
-    host_file = os.path.realpath(params['host_filename'])
+    host_file = os.path.realpath(params['host_file'])
     try:
         fhost = open(host_file)
         host_list = [x.split()[1] for x in fhost.readlines()]
@@ -43,7 +43,7 @@ if __name__ == '__main__':
         num_hosts = len(unique_host_list)
         fhost.close()
     except:
-        print('Error: Cannot read host file %s' %params['host_filename'])
+        print('Error: Cannot read host file %s' %params['host_file'])
         sys.exit(1)
 
     progname = 'lda_main'

@@ -7,7 +7,7 @@ params = {
 
     # Input files:
     , 'word_id_file': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/word_dict.id.txt.20news' # Synced at Sat, 25 Apr 2015 15:48:05 GMT, if copy_files set True, then must exist locally; else exist remotely
-    , 'host_file': '/home/yuntiand/daiwei/wrapup_preprocess/update7/lightlda/machinefiles/gce_hosts' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
+    , 'host_file': '/home/yuntiand/daiwei/wrapup_preprocess/update7/lightlda/machinefiles/gce_hosts' # Synced at Tue, 28 Apr 2015 02:24:37 GMT
     , 'binary_doc_dir': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/binary_doc_dir' # Synced at Sat, 25 Apr 2015 15:48:05 GMT, if copy_files set True, then must exist locally; else exist remotely
 
     # LDA Parameters:
@@ -17,7 +17,6 @@ params = {
 
     # Output files:
     , 'dict_meta_file': 'datasets/meta' # must be created remotely, path relative to working dir or app dir or absolute path
-    , 'output_dir': 'output' # must be created remotely
     , 'log_dir': 'log' # must be created remotely
     , 'dump_file': 'output/dump' # must be created remotely
 
@@ -38,10 +37,10 @@ params = {
     , 'staleness': 1
 
     # Default parameters:
-    , 'ssh_identity_file': '~/.ssh/google_compute_engine' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
-    , 'ssh_username': 'lightlda' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
-    , 'internal_host_file': '/home/yuntiand/daiwei/wrapup_preprocess/update7/lightlda/machinefiles/gce_internal_hosts' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
-    , 'remote_app_dir': '~/lightlda' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
+    , 'ssh_identity_file': '~/.ssh/google_compute_engine' # Synced at Tue, 28 Apr 2015 02:24:37 GMT
+    , 'ssh_username': 'lightlda' # Synced at Tue, 28 Apr 2015 02:24:37 GMT
+    , 'internal_host_file': '/home/yuntiand/daiwei/wrapup_preprocess/update7/lightlda/machinefiles/gce_internal_hosts' # Synced at Tue, 28 Apr 2015 02:24:37 GMT
+    , 'remote_app_dir': '~/lightlda' # Synced at Tue, 28 Apr 2015 02:24:37 GMT
 
     # Default parameters:
     , 'block_offset': 0 # Synced at Sat, 25 Apr 2015 15:48:05 GMT
@@ -161,14 +160,13 @@ if __name__ == '__main__':
     print('Creating done!')
     # Create output and log directory if not present
     print('Creating output and log directory if not present on clients')
-    replace_tilde_path(['log_dir', 'output_dir', 'dump_file', 'dict_meta_file', 'word_id_file', 'internal_host_file', 'binary_doc_dir'], remote_home_dir)
+    replace_tilde_path(['log_dir', 'dump_file', 'dict_meta_file', 'word_id_file', 'internal_host_file', 'binary_doc_dir'], remote_home_dir)
     log_path = params['log_dir'] if os.path.isabs(params['log_dir']) else os.path.join(remote_app_dir, params['log_dir'])
-    output_path = params['output_dir'] if os.path.isabs(params['output_dir']) else os.path.join(remote_app_dir, params['output_dir'])
     dump_dir = os.path.dirname(params['dump_file'])
     dump_path = dump_dir if os.path.isabs(dump_dir) else os.path.join(remote_app_dir, dump_dir)
     dict_meta_dir = os.path.dirname(params['dict_meta_file'])
     dict_meta_path = dict_meta_dir if os.path.isabs(dict_meta_dir) else os.path.join(remote_app_dir, dict_meta_dir)
-    need_mkdirs = [output_path, log_path, dump_path, dict_meta_path]
+    need_mkdirs = [log_path, dump_path, dict_meta_path]
     if params['copy_files']:
         need_mkdirs.append(remote_input_files_base_dir)
         need_mkdirs.append(os.path.join(remote_input_files_base_dir, os.path.basename(params['binary_doc_dir'])))
@@ -377,12 +375,28 @@ if __name__ == '__main__':
             with codecs.open(tmp_kill_lda_path, encoding='utf-8', mode='w') as ftmp:
                 curr_timestamp = time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime())
                 for line in fin:
-                    line_out = re.sub(ur"'host_filename'\s*:.*", ur"'host_filename': '%s' # Synced at %s" %(params['host_file'], curr_timestamp), line)
+                    line_out = re.sub(ur"'host_file'\s*:.*", ur"'host_file': '%s' # Synced at %s" %(params['host_file'], curr_timestamp), line)
                     line_out = re.sub(ur"'ssh_identity_file'\s*:.*", ur"'ssh_identity_file': '%s' # Synced at %s" %(params['ssh_identity_file'], curr_timestamp), line_out)
                     line_out = re.sub(ur"'ssh_username'\s*:.*", ur"'ssh_username': '%s' # Synced at %s" %(params['ssh_username'], curr_timestamp), line_out)
                     ftmp.write(line_out)
         if os.path.isfile(tmp_kill_lda_path):
             os.rename(tmp_kill_lda_path, kill_lda_path)
+        # Sync download_data.py 
+        download_data_path = os.path.join(script_dir, 'gce/download.py')
+        tmp_download_data_path = os.path.join(params['tmp_directory'], 'download_data.py')
+        assert os.path.isfile(download_data_path), 'Sync failed, download_data.py not found!'
+        with codecs.open(download_data_path, encoding='utf-8', mode='r') as fin:
+            with codecs.open(tmp_download_data_path, encoding='utf-8', mode='w') as ftmp:
+                curr_timestamp = time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime())
+                for line in fin:
+                    line_out = re.sub(ur"'host_file'\s*:.*", ur"'host_file': '%s' # Synced at %s" %(params['host_file'], curr_timestamp), line)
+                    line_out = re.sub(ur"'ssh_identity_file'\s*:.*", ur"'ssh_identity_file': '%s' # Synced at %s" %(params['ssh_identity_file'], curr_timestamp), line_out)
+                    line_out = re.sub(ur"'ssh_username'\s*:.*", ur"'ssh_username': '%s' # Synced at %s" %(params['ssh_username'], curr_timestamp), line_out)
+                    line_out = re.sub(ur"'log_dir'\s*:.*", ur"'log_dir': '%s' # Synced at %s" %(log_path, curr_timestamp), line_out)
+                    line_out = re.sub(ur"'dump_dir'\s*:.*", ur"'dump_dir': '%s' # Synced at %s" %(dump_path, curr_timestamp), line_out)
+                    ftmp.write(line_out)
+        if os.path.isfile(tmp_download_data_path):
+            os.rename(tmp_download_data_path, download_data_path)
         print('Parameters synced at %s' %curr_timestamp)
     # Delete temp directory
     shutil.rmtree(params['tmp_directory'])
