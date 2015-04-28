@@ -25,6 +25,10 @@ Light LDA
  ```
  
  ```
+ python scripts/gce/download_data.py
+ ```
+ 
+ ```
  python scripts/delete_instances.py
  ```
  Note: Tested on GCE
