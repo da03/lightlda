@@ -202,6 +202,7 @@ if __name__ == '__main__':
                     client_num_blocks = ave_block_num
             for num in range(client_num_blocks):
                 cmd = ' '.join([scp_cmd[0], os.path.join(params['binary_doc_dir'], 'block.%d' %(client_block_offset+num)), scp_cmd[1]+':'+os.path.join(remote_input_files_base_dir, os.path.basename(params['binary_doc_dir']))])
+                cmds.append(cmd)
                 cmd = ' '.join([scp_cmd[0], os.path.join(params['binary_doc_dir'], 'vocab.%d' %(client_block_offset+num)), scp_cmd[1]+':'+os.path.join(remote_input_files_base_dir, os.path.basename(params['binary_doc_dir']))])
                 cmds.append(cmd)
             client_block_offset += client_num_blocks
