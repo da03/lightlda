@@ -382,7 +382,7 @@ if __name__ == '__main__':
         if os.path.isfile(tmp_kill_lda_path):
             os.rename(tmp_kill_lda_path, kill_lda_path)
         # Sync download_data.py 
-        download_data_path = os.path.join(script_dir, 'gce/download.py')
+        download_data_path = os.path.join(script_dir, 'gce/download_data.py')
         tmp_download_data_path = os.path.join(params['tmp_directory'], 'download_data.py')
         assert os.path.isfile(download_data_path), 'Sync failed, download_data.py not found!'
         with codecs.open(download_data_path, encoding='utf-8', mode='r') as fin:
