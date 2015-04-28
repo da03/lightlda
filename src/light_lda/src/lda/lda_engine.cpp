@@ -456,7 +456,7 @@ namespace lda {
 				process_barrier_->wait();
 				LocalVocab& local_vocab = vocabs_[batch_id];
 				int32_t num_of_slice = local_vocab.NumOfSlice();
-                LOG(ERROR)<<"num of slice: " << num_of_slice;
+                //LOG(ERROR)<<"num of slice: " << num_of_slice;
 				for (int32_t slice_id = 0; slice_id < num_of_slice; ++slice_id)
 				{
 					process_barrier_->wait();					
