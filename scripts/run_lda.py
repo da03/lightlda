@@ -210,18 +210,6 @@ if __name__ == '__main__':
         multiprocess_exec_cmds(set(cmds))
         print('Copying done!')
 
-# Judge if input files exist on remote machines
-    ## Input files:
-    #, 'word_id_file': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/word_dict.id.txt.20news' # Synced at Sat, 25 Apr 2015 15:48:05 GMT, if copy_files set True, then must exist locally; else exist remotely
-    #, 'host_filename': 'machinefiles/localserver' # must exist locally
-    #, 'binary_doc_dir': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/binary_doc_dir' # Synced at Sat, 25 Apr 2015 15:48:05 GMT, if copy_files set True, then must exist locally; else exist remotely
-
-    ## Output files:
-    #, 'dict_meta_file': 'datasets/meta' # must be created remotely, path relative to working dir or app dir or absolute path
-    #, 'output_dirname': 'output' # must be created remotely
-    #, 'log_dirname': 'log' # must be created remotely
-    #, 'dump_file': 'output/dump' # must be created remotely
-
     # Count vocab size
     ssh_cmd = ssh_commands[0]
     if params['copy_files']:
@@ -261,7 +249,7 @@ if __name__ == '__main__':
     params['word_id_file'] = remote_word_id_file
     params['doc_file'] = doc_file
     params['vocab_file'] = vocab_file
-    params['dump_file'] = dump_path + '/'
+    params['dump_file'] = os.path.join(dump_path, 'dump')
     params['dict_meta_file'] = os.path.join(dict_meta_path, os.path.basename(params['dict_meta_file']))
 
     # Generate vocab meta info
