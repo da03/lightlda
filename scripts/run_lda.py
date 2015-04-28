@@ -55,7 +55,7 @@ params = {
 }
 
 ###############################################################################
-import sys, os, subprocess, time, glob, codecs, re, multiprocessing
+import sys, os, subprocess, time, glob, codecs, re, multiprocessing, shutil
 def replace_tilde_path(path_names, remote_home_dir):
     for path_name in path_names:
         m = re.match(r'~/(.*)', params[path_name])
