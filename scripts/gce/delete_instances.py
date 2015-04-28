@@ -2,11 +2,11 @@
 # Delete multiple gce instances
 # Parameters
 params = {
-    'instance_name_prefix': 'lightlda' # Synced at Mon, 27 Apr 2015 17:21:32 GMT
-    , 'num_instances': 2 # Synced at Mon, 27 Apr 2015 17:21:32 GMT
+    'instance_name_prefix': 'lightlda' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
+    , 'num_instances': 2 # Synced at Tue, 28 Apr 2015 00:18:32 GMT
     # Default parameters:
-    , 'instance_id_offset': 0 # Synced at Mon, 27 Apr 2015 17:21:32 GMT
-    , 'zone': 'us-central1-a' # Synced at Mon, 27 Apr 2015 17:21:32 GMT
+    , 'instance_id_offset': 0 # Synced at Tue, 28 Apr 2015 00:18:32 GMT
+    , 'zone': 'us-central1-a' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
 }
 
 ###############################################################################

@@ -115,11 +115,11 @@ if __name__ == '__main__':
             with codecs.open(tmp_run_lda_path, encoding='utf-8', mode='w') as ftmp:
                 curr_timestamp = time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime())
                 for line in fin:
-                    line_out = re.sub(ur"'host_file'\s*:.*", ur"'host_file': '%s' # Synced at %s" %(os.path.realpath(params['host_file']), curr_timestamp), line)
-                    line_out = re.sub(ur"'internal_host_file'\s*:.*", ur"'internal_host_file': '%s' # Synced at %s" %(os.path.realpath(params['internal_host_file']), curr_timestamp), line_out)
-                    line_out = re.sub(ur"'ssh_identity_file'\s*:.*", ur"'ssh_identity_file': '~/.ssh/google_compute_engine' # Synced at %s" %(curr_timestamp), line_out)
-                    line_out = re.sub(ur"'ssh_username'\s*:.*", ur"'ssh_username': 'lightlda' # Synced at %s" %(curr_timestamp), line_out)
-                    line_out = re.sub(ur"'remote_app_dir'\s*:.*", ur"'remote_app_dir': '~/lightlda' # Synced at %s" %(curr_timestamp), line_out)
+                    line_out = re.sub(ur"(\s*,\s*)'host_file'\s*:.*", ur"\1'host_file': '%s' # Synced at %s" %(os.path.realpath(params['host_file']), curr_timestamp), line)
+                    line_out = re.sub(ur"(\s*,\s*)'internal_host_file'\s*:.*", ur"\1'internal_host_file': '%s' # Synced at %s" %(os.path.realpath(params['internal_host_file']), curr_timestamp), line_out)
+                    line_out = re.sub(ur"(\s*,\s*)'ssh_identity_file'\s*:.*", ur"\1'ssh_identity_file': '~/.ssh/google_compute_engine' # Synced at %s" %(curr_timestamp), line_out)
+                    line_out = re.sub(ur"(\s*,\s*)'ssh_username'\s*:.*", ur"\1'ssh_username': 'lightlda' # Synced at %s" %(curr_timestamp), line_out)
+                    line_out = re.sub(ur"(\s*,\s*)'remote_app_dir'\s*:.*", ur"\1'remote_app_dir': '~/lightlda' # Synced at %s" %(curr_timestamp), line_out)
                     ftmp.write(line_out)
         if os.path.isfile(tmp_run_lda_path):
             os.rename(tmp_run_lda_path, run_lda_path)

@@ -7,7 +7,7 @@ params = {
 
     # Input files:
     , 'word_id_file': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/word_dict.id.txt.20news' # Synced at Sat, 25 Apr 2015 15:48:05 GMT, if copy_files set True, then must exist locally; else exist remotely
-    , 'host_file': '/home/yuntiand/daiwei/wrapup_preprocess/update5/lightlda/machinefiles/gce_hosts' # Synced at Mon, 27 Apr 2015 17:21:32 GMT
+    , 'host_file': '/home/yuntiand/daiwei/wrapup_preprocess/update7/lightlda/machinefiles/gce_hosts' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
     , 'binary_doc_dir': '/home/yuntiand/daiwei/wrapup_preprocess/lightlda/datasets/binary_doc_dir' # Synced at Sat, 25 Apr 2015 15:48:05 GMT, if copy_files set True, then must exist locally; else exist remotely
 
     # LDA Parameters:
@@ -38,10 +38,10 @@ params = {
     , 'staleness': 1
 
     # Default parameters:
-    , 'ssh_identity_file': '~/.ssh/google_compute_engine' # Synced at Mon, 27 Apr 2015 17:21:32 GMT
-    , 'ssh_username': 'lightlda' # Synced at Mon, 27 Apr 2015 17:21:32 GMT
-    , 'internal_host_file': '/home/yuntiand/daiwei/wrapup_preprocess/update5/lightlda/machinefiles/gce_internal_hosts' # Synced at Mon, 27 Apr 2015 17:21:32 GMT
-    , 'remote_app_dir': '~/lightlda' # Synced at Mon, 27 Apr 2015 17:21:32 GMT
+    , 'ssh_identity_file': '~/.ssh/google_compute_engine' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
+    , 'ssh_username': 'lightlda' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
+    , 'internal_host_file': '/home/yuntiand/daiwei/wrapup_preprocess/update7/lightlda/machinefiles/gce_internal_hosts' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
+    , 'remote_app_dir': '~/lightlda' # Synced at Tue, 28 Apr 2015 00:18:32 GMT
 
     # Default parameters:
     , 'block_offset': 0 # Synced at Sat, 25 Apr 2015 15:48:05 GMT
