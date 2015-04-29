@@ -381,6 +381,20 @@ if __name__ == '__main__':
                     ftmp.write(line_out)
         if os.path.isfile(tmp_kill_lda_path):
             os.rename(tmp_kill_lda_path, kill_lda_path)
+        # Sync query_status.py 
+        query_status_path = os.path.join(script_dir, 'query_status.py')
+        tmp_query_status_path = os.path.join(params['tmp_directory'], 'query_status.py')
+        assert os.path.isfile(query_status_path), 'Sync failed, query_status.py not found!'
+        with codecs.open(query_status_path, encoding='utf-8', mode='r') as fin:
+            with codecs.open(tmp_query_status_path, encoding='utf-8', mode='w') as ftmp:
+                curr_timestamp = time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime())
+                for line in fin:
+                    line_out = re.sub(ur"'host_file'\s*:.*", ur"'host_file': '%s' # Synced at %s" %(params['host_file'], curr_timestamp), line)
+                    line_out = re.sub(ur"'ssh_identity_file'\s*:.*", ur"'ssh_identity_file': '%s' # Synced at %s" %(params['ssh_identity_file'], curr_timestamp), line_out)
+                    line_out = re.sub(ur"'ssh_username'\s*:.*", ur"'ssh_username': '%s' # Synced at %s" %(params['ssh_username'], curr_timestamp), line_out)
+                    ftmp.write(line_out)
+        if os.path.isfile(tmp_query_status_path):
+            os.rename(tmp_query_status_path, query_status_path)
         # Sync download_data.py 
         download_data_path = os.path.join(script_dir, 'gce/download_data.py')
         tmp_download_data_path = os.path.join(params['tmp_directory'], 'download_data.py')
