@@ -32,6 +32,7 @@ def multiprocess_checkoutput_cmds(cmds):
     for thread in threads:
         thread.join()
     time.sleep(1)
+    return(len(threads), result_queue)
 if __name__ == '__main__':
     # Parse hostfile
     host_file = os.path.realpath(params['host_file'])
@@ -72,7 +73,7 @@ if __name__ == '__main__':
     for thread_id in range(num_threads):
         try:
             cmds, result = result_queue.get(False)
-            if result[1]:
+            if result:
                 num_running += 1
         except:
             print >> sys.stderr, 'Error checkout commands'
