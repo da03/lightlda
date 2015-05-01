@@ -18,7 +18,7 @@ params = {
 }
 
 ###############################################################################
-import subprocess, os, codecs, time, multiprocessing, re, shutil
+import subprocess, os, codecs, time, multiprocessing, re, shutil, sys
 
 def create_instance(instance_name, result_queue):
     print('Creating %s' %instance_name)
