@@ -9,26 +9,15 @@ Light LDA
  ```
 
  ```
- python scripts/shuffle_vocab.py
+ cd datasets
  ```
 
  ```
- python scripts/generate_data_blocks.py
+ tar zxf 20news-train.tgz
  ```
 
  ```
- python scripts/gce/create_instances.py
+ python scripts/pipeline.py
  ```
 
- ```
- python scripts/run_lda.py
- ```
- 
- ```
- python scripts/gce/download_data.py
- ```
- 
- ```
- python scripts/delete_instances.py
- ```
- Note: Tested on GCE
+Note: parameters are defined in `etc/params.config`
