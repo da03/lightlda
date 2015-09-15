@@ -4,6 +4,9 @@ import os, sys, random, codecs
 if len(sys.argv) <> 5:
     print >> sys.stderr, ''
     print >> sys.stderr, 'Usage: python %s <vocab-file> <num-topic> <word-topic-tables> <output-file>' % sys.argv[0]
+    print >> sys.stderr, 'Note that the <vocab-file> contains id, word, term frequency. The <word-topic-tables> is '
+    print >> sys.stderr, 'files seperated by :, e.g., there are two tables at iteration 99, namely t.990 and t.991'
+    print >> sys.stderr, '(the 99 is iteration, 0 or 1 is the client id), then this field shall be t.990:t.991'
     print >> sys.stderr, ''
     sys.exit(1)
 

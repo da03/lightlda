@@ -1,0 +1,22 @@
+# This is the default params file, you are not supposed to modify that
+log_dir = log
+vocab_stopword = _DEFAULT_
+vocab_min_occurence = 5
+block_size = 1000
+mean_doc_size = 300
+
+SSH_identity_file = _NO_
+SSH_user_name = _NO_
+
+load_factor = 2
+num_delta_threads = 2
+cold_start = True
+staleness = 1
+mh_step = 2
+dump_model_interval = 10
+compute_ll_interval = -1
+
+
+alias_max_capacity = 40000000
+delta_max_capacity = 40000000
+model_max_capacity = 40000000
