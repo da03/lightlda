@@ -13,6 +13,10 @@ Light LDA
  ```
 
  ```
+ cd ..
+ ```
+ 
+ ```
  tar zxf 20news-train.tgz
  ```
 
