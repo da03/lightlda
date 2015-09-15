@@ -98,7 +98,7 @@ $(BOOST_INCLUDE): $(BOOST_SRC)
 	tar jxf $< -C $(THIRD_PARTY_SRC)
 	cd $(basename $(basename $<)); \
 	./bootstrap.sh \
-		--with-libraries=system,thread,date_time,program_options \
+		--with-libraries=system,thread,date_time,filesystem,program_options \
 		--prefix=$(THIRD_PARTY); \
 	./b2 install
 

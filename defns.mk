@@ -4,12 +4,10 @@
 DUMP_DICT_META_MN = $(LDA_ROOT)/src/dump_dict_meta_mn
 DUMP_DICT_META_MN_BIN = $(LDA_ROOT)/bin
 
-# dump_binary_doc_mn
-DUMP_BINARY_DOC_MN = $(LDA_ROOT)/src/dump_binary_doc_mn
-DUMP_BINARY_DOC_MN_BIN = $(LDA_ROOT)/bin
+# generate_datablocks
+GENERATE_DATABLOCKS = $(LDA_ROOT)/src/generate_datablocks
+GENERATE_DATABLOCKS_BIN = $(LDA_ROOT)/bin
 
-# petuum parameter server
-#PETUUM_PS = $(LDA_ROOT)/petuum_ps
 
 # light lda
 LIGHT_LDA = $(LDA_ROOT)/src/light_lda
@@ -46,4 +44,5 @@ LDA_LDFLAGS = -Wl,-rpath,$(LDA_THIRD_PARTY_LIB) \
           -lgflags \
           -lboost_thread \
           -lboost_system \
+		  -lboost_filesystem \
 		  -lzmq 

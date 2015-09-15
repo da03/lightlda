@@ -13,7 +13,7 @@ word_topic_filename = sys.argv[3]
 output_filename = sys.argv[4]
 
 vocab_array = []
-with codecs.open(vocab_filename, encoding='utf-8', mode='r') as fvocab:
+with codecs.open(vocab_filename) as fvocab:
     for line in fvocab:
         words = line.strip().split()
         vocab_array.append(words[1])
@@ -42,7 +42,7 @@ for topic in topic_array:
     topic_sorted = sorted(topic, key=lambda t: -1*t[1])
     topic_array_sorted.append(topic_sorted)
 
-with codecs.open(output_filename, encoding='utf-8', mode='w') as fout:
+with codecs.open(output_filename, mode='w') as fout:
     for topic in topic_array_sorted:
         line = ''
         sum_item = 0.0

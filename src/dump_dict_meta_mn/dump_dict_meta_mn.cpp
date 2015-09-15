@@ -92,7 +92,8 @@ int main(int argc, char* argv[])
 	int32_t tf;
 	// int32_t word_count = 0;
 	// int64_t offset = 0;
-	
+
+    int line_idx = 0;
 	while (word_id_fin >> word_id >> word >> tf)
 	{
 		// CHECK(word_count == word_id) << "word_count != word_id";
