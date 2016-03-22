@@ -303,6 +303,7 @@ void get_filenames(std::string input_dir, std::vector<std::string> &filenames) {
         std::string filename = itr->path().string(); 
         filenames.push_back(filename);
     }
+    std::random_shuffle(filenames.begin(), filenames.end());
 }
 
 void count_tf_df(std::vector<std::string> &filenames, 
