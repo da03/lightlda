@@ -1,6 +1,6 @@
 Light LDA
 =========
- Petuum's Light LDA (Distributed version)
+ Modified based on MSR's Light LDA, added preprocessing scripts.
 
  Usage (Suppose you are in lightlda/):
 
