@@ -1,5 +1,11 @@
 # Assuming this Makefile lives in project root directory
-PROJECT := $(shell readlink $(dir $(lastword $(MAKEFILE_LIST))) -f)
+OS_NAME = $(shell uname -s)
+LC_OS_NAME = $(shell echo $(OS_NAME) | tr '[A-Z]' '[a-z]')
+ifeq ($(LC_OS_NAME), linux)
+	PROJECT := $(shell readlink $(dir $(lastword $(MAKEFILE_LIST))) -f)
+else ifeq ($(LC_OS_NAME), darwin)
+	PROJECT := .
+endif
 
 LDA_ROOT = $(PROJECT)
 
